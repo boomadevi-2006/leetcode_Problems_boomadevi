@@ -4,10 +4,27 @@ using namespace std;
 /*
  * Unique Paths Problem Solutions
  * 
- * Three approaches included:
+ * Approaches included:
  * 1. Dynamic Programming (Tabulation)
- * 2. Memoization (Top-Down)
- * 3. Naive Recursion (Exponential time)
+ *    - Use a 2D dp array where dp[i][j] represents the number of unique paths to reach cell (i, j).
+ *    - Initialize first row and first column to 1 (only one way to reach cells in first row/column).
+ *    - For other cells, dp[i][j] = dp[i-1][j] + dp[i][j-1].
+ *    - Time Complexity: O(m*n)
+ *    - Space Complexity: O(m*n)
+ * 
+ * 2. Memoization (Top-Down DP)
+ *    - Use recursion with memoization to avoid repeated calculations.
+ *    - Base cases: If we reach first row or first column, only 1 path.
+ *    - For other positions, number of paths = sum of paths from above and left cells.
+ *    - Time Complexity: O(m*n)
+ *    - Space Complexity: O(m*n) due to recursion stack and memo table.
+ * 
+ * 3. Naive Recursion (Exponential)
+ *    - Simple recursive solution without memoization.
+ *    - Base case: If m == 1 or n == 1, return 1.
+ *    - Recursive case: sum of unique paths from cell above and cell left.
+ *    - Time Complexity: Exponential, highly inefficient for large inputs.
+ *    - Space Complexity: O(m+n) due to recursion stack.
  */
 
 //////////////////////////////////////

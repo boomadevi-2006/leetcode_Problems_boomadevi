@@ -6,11 +6,13 @@
  * 1. Space-Optimized Dynamic Programming (1D DP)
  * 2. Top-Down DP with Memoization
  * 3. Pure Recursion (No Memoization)
+ * 4. Bottom-Up DP (Tabulation)
  *
  * Time Complexities:
- * - Space-Optimized DP: O(m * n), Space: O(n)
+ * - 1D DP: O(m * n), Space: O(n)
  * - Memoization: O(m * n), Space: O(m * n)
- * - Pure Recursion: Exponential Time, O(2^(m + n))
+ * - Pure Recursion: O(2^(m + n))
+ * - Bottom-Up Tabulation: O(m * n), Space: O(m * n)
  */
 
 #include <iostream>
@@ -85,6 +87,30 @@ public:
 };
 
 // --------------------------------------------------------------------
+// ✅ Approach 4: Bottom-Up DP (Tabulation)
+// --------------------------------------------------------------------
+class LCS_Tabulation {
+public:
+    int longestCommonSubsequence(string s, string t) {
+        int m = s.size();
+        int n = t.size();
+        vector<vector<int>> dp(m + 1, vector<int>(n + 1, 0));
+
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (s[i - 1] == t[j - 1]) {
+                    dp[i][j] = 1 + dp[i - 1][j - 1];
+                } else {
+                    dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+                }
+            }
+        }
+
+        return dp[m][n];
+    }
+};
+
+// --------------------------------------------------------------------
 // 🔧 Example Usage (Commented Out)
 // --------------------------------------------------------------------
 /*
@@ -95,12 +121,13 @@ int main() {
     LCS_SpaceOptimized sol1;
     LCS_Memoization sol2;
     LCS_Recursive sol3;
+    LCS_Tabulation sol4;
 
     cout << "Space-Optimized DP: " << sol1.longestCommonSubsequence(s1, s2) << endl;
-    cout << "Memoization: " << sol2.longestCommonSubsequence(s1, s2) << endl;
-    cout << "Pure Recursion: " << sol3.longestCommonSubsequence(s1, s2) << endl;
+    cout << "Memoization:        " << sol2.longestCommonSubsequence(s1, s2) << endl;
+    cout << "Pure Recursion:     " << sol3.longestCommonSubsequence(s1, s2) << endl;
+    cout << "Bottom-Up DP:       " << sol4.longestCommonSubsequence(s1, s2) << endl;
 
     return 0;
 }
 */
-
